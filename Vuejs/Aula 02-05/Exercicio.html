@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li><a @click.prevent="busca" href="https://ws.apicep.com/cep.json?code=13360-000">Capivari</a></li>
+      <li><a @click.prevent="busca" href="https://ws.apicep.com/cep.json?code=49045-310">Aracaju</a></li>
+      <li><a @click.prevent="busca" href="https://ws.apicep.com/cep.json?code=01153-000">São Paulo</a></li>
+      <li><a @click.prevent="busca" href="https://ws.apicep.com/cep.json?code=20020-030">RJ Praça Academia</a></li>
+      <li><a @click.prevent="busca" href="https://ws.apicep.com/cep.json?code=39500-000">Monte Azul</a></li>
+    </ul>
+
+    <div>
+        <p>Cidade: {{acao.city}}</p>
+        <p>Cep: {{acao.code}}</p>
+        <p>Estado: {{acao.state}}</p>
+    </div>
+  </div>
+  
+  <script>
+    const aprendizado = new Vue({
+      el: "#app",
+      data: {
+        acao:{}
+      },
+      methods:{
+        busca(event){
+          const url = event.currentTarget.href
+          fetch(url)
+          .then(r => r.json())
+          .then(r => {
+            this.acao = r;
+          })
+        }
+      }
+    })
+  </script>
+  <!--
+    Utilizando API
+    https://api.origamid.dev/stock/aapl/quote
+  
+    Adicione um evento de clique a cada <a> do html
+    acima e previna o comportamento padrão.
+  
+    Faça o fetch dos dados do href ao click e mostre na
+    interface o companyName, latestPrice, marketCap
+  -->
+
+</body>
+
+</html>

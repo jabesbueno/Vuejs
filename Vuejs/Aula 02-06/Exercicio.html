@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+
+    </div>
+      <p>Itens: {{itens}}</p>
+      <button v-show="estoque" @click="addItem">Adicionar</button>
+      <button v-show="itens" @click="rmItem">Remover</button>
+      <p>Estoque: {{estoque}}</p>
+      <p v-show="estoque == 0">Não é possível adicionar mais de 7 itens</p>
+  </div>
+  <script>
+    const apredizado = new Vue({
+      el: "#app",
+      data: {
+        itens: 0,
+        estoque: 7
+      },
+      methods: {
+        addItem(){
+          this.itens++;
+          this.estoque--;
+        },
+        rmItem(){
+          this.itens--;
+          this.estoque++;
+        }
+      }
+    })
+  </script>
+
+  <!--
+  Simule a adição de um produto no carrinho
+  este produto possui estoque de 7 itens
+  (utilize a mesma ideia do contador).
+
+  Ao atingir 7 itens mostre uma mensagem informando
+  não ser possível adicinar mais do que 7 itens.
+
+  Remova também o botão de adicionar itens.
+-->
+
+</body>
+</html>

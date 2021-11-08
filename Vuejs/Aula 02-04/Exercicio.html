@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+
+  <style>
+    .verde {
+      color: green
+    }
+
+    .vermelho {
+      color: red
+    }
+  </style>
+
+  <div id="app">
+    <p>Possui logradouro?</p>
+    <div>
+        <p :class="capivari.address != '' ? 'verde' : 'vermelho'">{{capivari.city}}</p>
+        <p >{{capivari.code}}</p>
+        <p>{{capivari.address}}</p>
+    </div>
+    <p>-------------------------</p>
+    <div>
+        <p :class="aracaju.address != '' ? 'verde' : 'vermelho'">{{aracaju.city}}</p>
+        <p>{{aracaju.code}}</p>
+        <p>{{aracaju.address}}</p>
+    </div>
+    <button @click="busca">Busca</button>
+  </div>
+
+  <script>
+    const aprendizado = new Vue({
+      el: "#app",
+      data: {
+        capivari: {},
+        aracaju: {}
+      },
+      methods:{
+        fetchCapivari(){
+          fetch("https://ws.apicep.com/cep.json?code=13360-000")
+          .then(response => response.json())
+          .then(capivari =>{
+            this.capivari = capivari;
+          })
+        },
+        fetchAracaju(){
+          fetch("https://ws.apicep.com/cep.json?code=49045-310")
+          .then(response => response.json())
+          .then(aracaju =>{
+            this.aracaju = aracaju;
+          })
+        },
+        busca(){
+          this.fetchCapivari();
+          this.fetchAracaju();
+        }
+      }
+    })
+  </script>
+  <!--
+  Utilizando as API's
+  https://api.origamid.dev/stock/aapl/quote
+  https://api.origamid.dev/stock/googl/quote
+
+  - Compare o marketCap (valor de
+  mercado) entre ambas.
+
+  - Mostre o nome das empresas e o valor
+  na interface (companyName e marketCap).
+
+  - Mude a cor para verde o nome da empresa com
+  maior marketCap e vermelho a com menor.
+-->
+
+</body>
+
+</html>

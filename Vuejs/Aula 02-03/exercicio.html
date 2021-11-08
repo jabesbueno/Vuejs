@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>Cep: {{dados.code}}</p>
+    <p>Estado: {{dados.state}}</p>
+    <p>Cidade: {{dados.city}}</p>
+    <button @click="busca()">Busca CEP</button>
+  </div>
+
+  <script>
+    const buscaApi = new Vue({
+      el: "#app",
+      data: {
+        dados:{
+        }
+      },
+      methods: { 
+        busca(){
+          fetch("https://ws.apicep.com/cep.json?code=13360-000")
+          .then(response => response.json())
+          .then (json => {
+            this.dados = json;
+            console.log(json);
+          })
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
