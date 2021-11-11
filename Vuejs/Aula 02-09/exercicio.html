@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../libraries/vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+<!--
+  Você possui o nome e sobrenome do usuário em data,
+  crie uma propriedade computed que retorne o nome completo
+  
+  Utilize a rest API para puxar as capitais dos paises
+  Use um campo de select, onde o usuário pode selecionar o país.
+  https://restcountries.eu/rest/v2/all
+
+  Com uma função watch, mude a capital de acordo com o país selecionado:
+
+  Ex de campo select:
+
+  <select name="paises" id="paises" v-model="selecionado">
+    <option v-for="pais in paises" :value="pais.name">
+      {{pais.name}}
+    </option>
+  </select>
+-->
+
+  <div id="app">
+    {{nomeCompleto}}
+    <p>
+        <button @click="buscaDados">Busca estados</button>
+    </p>
+    <p>
+      <select name="estado" id="estado" v-model="estadoSelecionado">
+        <option v-for="estado in dados" :value="estado.nome">
+          {{estado.nome}}
+        </option>
+      </select>
+    </p>
+    <p>
+      Sigla do estado: {{busca.sigla}}
+    </p>
+  </div>
+
+  <script>
+    const aprendizado = new Vue({
+      el: '#app',
+      data: {
+        nome: 'First Name',
+        sobrenome: 'Last Name',
+        dados: {},
+        estadoSelecionado: '',
+        busca: '' 
+      },
+      methods:{
+        buscaDados(){
+          fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+          .then(response => response.json())
+          .then(response => {
+            this.dados = response;
+          })
+        }
+      },
+      computed:{
+        nomeCompleto(){
+          return this.nome + " " + this.sobrenome;
+        }
+      },
+      watch:{
+        estadoSelecionado(){
+          this.busca = this.dados.find((estado) => estado.nome === this.estadoSelecionado);
+        }
+      }
+    }) 
+  </script>
+</body>
+</html>
