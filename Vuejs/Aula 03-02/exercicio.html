@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../libraries/vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="colunaOn = !colunaOn">Trocar</button>
+   <ul :class="{column: colunaOn}" @click="alterarCor">
+     <li :style="{background: cor}">Sobre</li>
+     <li :style="{background: cor}">Produtos</li>
+     <li :style="{background: cor}">Serviços</li>
+     <li :style="{background: cor}">Contato</li>
+   </ul>
+  </div>
+
+  <script>
+    const aprendizado = new Vue({
+      el: "#app",
+      data:{
+        colunaOn: true,
+        cor: 'blue'
+      },
+      methods:{
+        alterarCor(){
+          this.cor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        }
+      }
+    })
+  </script>
+
+  <style>
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      font-family: monospace;
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+    }
+    .column {
+      flex-direction: column;
+    }
+    li {
+      padding: 20px;
+      background: #84e;
+      color: white;
+      border-radius: 4px;
+      margin: 10px;
+      flex: 1;
+      text-align: center;
+    }
+  </style>
+</body>
+</html>
