@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../libraries/vue.js"></script>
+  <title>Vue.js</title>
+</head>
+
+<body>
+<!-- 
+  1 - Crie um criador de botões.
+
+  O usuário poderá definir:
+  width,
+  height,
+  font-size,
+  font-family,
+  text-align,
+  background,
+  color,
+  border-radius,
+
+  As escolhas serão feitas em campos de
+  formulário. Cada escolha deverá ser 
+  refletida em um elemento (o botão).
+
+
+  2 - Crie um formulário com, nome, email, telefone e mensagem.
+  Ao clicar em enviar, as informações preenchidas no formulário
+  devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+ -->
+
+   <div id="formulario">
+      <form>
+          <label for="nome">Nome </label>  
+          <input id="nome" name="nome" type="text" v-model.lazy="nome" />
+          <label for="email">Email </label>  
+          <input id="email" name="email" type="email" v-model.lazy="email" />
+          <label for="telefone">Telefone </label>  
+          <input id="telefone" name="telefone" type="text" v-model.lazy="telefone" />
+          <label for="mensagem">Mensagem </label>  
+          <textarea id="mensagem" name="mensagem" v-model.lazy="mensagem"></textarea>
+          <input @click.prevent="enviarForm" type="submit"/>
+      </form>
+      <div>
+        <p v-for="(chave, index) in resultado">
+          {{index}}: {{chave}}
+        </p>
+      </div>
+
+   </div>
+
+ <hr>
+
+  <div id="app">
+    <label for="width">Width </label>
+    <input id="width"type="text" v-model="style.width"></input>
+    <label for="heigth">Height </label>
+    <input id="heigth" type="text" v-model="style.height"></input>
+    <label for="fontSize">Font-size </label>
+    <input id="fontSize" type="text" v-model="style.fontSize"></input>
+    <label for="fontFamily">Font-family </label>
+    <input id="fontFamily" type="text" v-model="style.fontFamily"></input>
+    <label for="textAlign">Text-Align </label>
+    <input id="textAlign" type="text" v-model="style.textAlign"></input>
+    <label for="background">Background </label>
+    <input id="background" type="color" v-model="style.background"></input>
+    <label for="color">Color </label>
+    <input id="color" type="color" v-model="style.color"></input>
+    <label for="borderRadius">Boder-radius </label>
+    <input id="borderRadius" type="text" v-model="style.borderRadius"></input>
+    
+    <a :style="style" href="">Teste</a>
+  </div>
+
+
+  <script>
+    const aprendizado = new Vue({
+      el: "#app",
+      data: {
+        style:{
+          width: "100px",
+          height: "40px",
+          fontSize: "20px",
+          fontFamily: "monospace",
+          textAlign: "center",
+          background: "#000",
+          color: "#fff",
+          borderRadius: "2px"
+        }
+        
+      }
+    });
+
+    const teste = new Vue({
+      el: "#formulario",
+      data: {
+        nome: "",
+        email: "",
+        telefone: "",
+        mensagem: "",
+        resultado: {
+
+        }
+      },
+      methods:{
+        enviarForm(){
+          this.resultado = {
+            nome: this.nome,
+            email: this.email,
+            telefone: this.telefone,
+            mensagem: this.mensagem
+          }
+        }
+      }
+    })
+  </script>
+
+  <style>
+    label, a{
+      display: block;
+    }
+  </style>
+</body>
+</html>
